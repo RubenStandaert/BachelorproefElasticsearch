@@ -12,6 +12,7 @@
 % 4) latexmk -pdf naam_voornaam_voorstel.tex (1 keer)
 
 \documentclass[fleqn,10pt]{voorstel}
+\usepackage[export]{adjustbox}
 
 %------------------------------------------------------------------------------
 % Metadata over het artikel
@@ -33,7 +34,7 @@
 
 %---------- Abstract ----------------------------------------------------------
 
-\Abstract{In dit document staat een bachelorproefvoorstel beschreven over het gebruik van Elasticsearch als databank. Elasticsearch is een search engine die door veel grote softwarebedrijven actueel gebruikt wordt om data-analyses uit te voeren, om aan logging te doen of om een uitgebreide zoekfunctionaliteit aan te bieden op bijvoorbeeld een webshop. Veel bedrijven exporteren hun data vanuit een databank naar Elasticsearch. Dit doen ze omdat ze Elasticsearch voor voorgaande redenen willen gebruiken maar niet om hun data te beheren. De aanleiding naar dit onderzoek komt uit de vraag van veel developers of het voor hen aangeraden is om Elasticsearch als primaire databank te gebruiken. Om de voor-en nadelen te onderzoeken van Elasticsearch als databank zal er een literatuurstudie worden uitgevoerd. Daarnaast zal er ook een vergelijkende studie volgen. De uitvoeringstijd die nodig is om data de creëren, data te wijzigen, data op te vragen en data te verwijderen in Elasticsearch zal vergeleken worden met die van een populaire concurrent voor opslag en databeheer: MongoDB. In dit onderzoek zal ook blijken dat de correctheid van de query-resultaten een belangrijke rol speelt. Deze vergelijkingen zullen uitgevoerd worden met een kleine en middelgrote dataset om ook de schaalbaarheid te lichtjes te toetsen. Dit onderzoek is interessant voor Elasticsearch omdat er in toekomstige updates rekening kan gehouden worden met zwakke punten van de search engine die in dit onderzoek opduiken.
+\Abstract{In dit document staat een bachelorproefvoorstel beschreven over het gebruik van Elasticsearch als databank. Elasticsearch is een search engine die door veel grote softwarebedrijven actueel gebruikt wordt om data-analyses uit te voeren, om aan logging te doen of om een uitgebreide zoekfunctionaliteit aan te bieden op bijvoorbeeld een webshop. Veel bedrijven exporteren hun data vanuit een databank naar Elasticsearch. Dit doen ze omdat ze Elasticsearch voor voorgaande redenen willen gebruiken maar niet om hun data te beheren. De aanleiding naar dit onderzoek komt uit de vraag van veel developers of het voor hen aangeraden is om Elasticsearch als primaire databank te gebruiken. Om de voor-en nadelen te onderzoeken van Elasticsearch als databank zal er een literatuurstudie worden uitgevoerd. Daarna zal er ook een vergelijkende studie volgen. De uitvoeringstijd die nodig is om data de creëren, data te wijzigen, data op te vragen en data te verwijderen in Elasticsearch zal vergeleken worden met die van een populaire concurrent voor opslag en databeheer: MongoDB. In dit onderzoek zal ook blijken dat data-verlies een belangrijke rol speelt. Deze vergelijkingen zullen uitgevoerd worden met een kleine en middelgrote dataset om ook de schaalbaarheid te lichtjes te toetsen. Dit onderzoek is interessant voor Elasticsearch omdat er in toekomstige updates rekening kan gehouden worden met zwakke punten van de search engine die in dit onderzoek opduiken.
 	Van de resultaten wordt verwacht dat de snelheid van het opvragen van data en de schaalbaarheid van de databank in Elasticsearch superieur zullen zijn. Voor het beheren van de data zou MongoDB wel eens de voorkeur kunnen krijgen. Aan de hand van de resultaten zullen developers gemakkelijker kunnen besluiten of Elasticsearch als primaire databank een goede keuze zal zijn voor hun applicatie.}
 
 %---------- Onderzoeksdomein en sleutelwoorden --------------------------------
@@ -85,7 +86,6 @@
 	
 	In de master thesis van \textcite{Berglund2013} wordt er een eerste belangrijke stelling gemaakt over de schaalbaarheid van Elasticsearch. De search engine is zeer schaalbaar omdat de documents verdeeld zijn over verschillende nodes. Bij een specifieke zoekopdracht waarbij men zoekt op het document ID of het type zullen slechts enkele nodes moeten overlopen worden. Dat ideale scenario is echter niet altijd relevant. Afhankelijk van de criteria waarop men zoekt kan het zijn dat alle nodes moeten overlopen worden. Dat is een limitatie van de schaalbaarheid van Elasticsearch. Dat probleem zou vandaag nog niet opgelost kunnen worden zonder dat er data-verlies voorkomt in de zoekresultaten. Een eerste factor waarmee rekening moet gehouden worden bij het kiezen voor Elasticsearch als databank.
 	\\
-	\\
 	Alex Brasetvik, tech lead van Elastic Cloud, geeft alvast wat voor-en nadelen mee in \textcite{Brasetvik2013}. Hij legt uit dat Elasticsearch een paar eigenschappen van een databank aan de kant schuift, of vereenvoudigd om aan snelheid te winnen. Want uitvoeringstijd is het belangrijkste concept van Elasticsearch. Een voorbeeld hiervan is concurrency control. Dat word gedaan aan de hand van versienummers van de documents. Een optimistische aanpak dat snelheid als voordeel heeft. Van authorizatie is er nog geen sprake. Iedereen heeft dezelfde rechten. Een laatste belangrijk apsect dat hij aanhaalt zijn de out-of-memory errors. Deze worden nog niet zo goed afgehandeld in de huidige versie van Elasticsearch.
 	Zijn conclusie is dat Elasticsearch als een databank kan gebruikt worden als voor uw applicatie de limitaties aanvaardbaar zijn. Hij blijkt veel goed te praten aan de hand van de snelheid van Elasticsearch. Die snelheid zal voor verschillende soorten query’s en op verschillende datasets onderzocht worden in dit onderzoek.
 	
@@ -101,19 +101,38 @@
 	\section{Methodologie}
 	\label{sec:methodologie}
 	
-	Eerst zullen er scripts geschreven worden die een dataset van 50 000 documents en een dataset van 500 000 documents creërt in Elasticsearch en in MongoDB. Daarnaast zullen er een twintig-tal query's geschreven worden die elk een ander aspect zullen gaan toetsen. De query's worden uitgevoerd in Elasticsearch en in MongoDB op beide datasets. Na elke query zal de uitvoeringstijd gelogd worden. Ook zal de correctheid van het resultaat getest worden. Eens de resulaten binnen zijn kunnen er conclusies getrokken worden.
+	Eerst zullen er scripts geschreven worden die een dataset van 50 000 documents en een dataset van 500 000 documents creëren in Elasticsearch en in MongoDB. Daarnaast zullen er een twintig-tal query's geschreven worden die elk een ander aspect zullen gaan toetsen. Voorbeelden van zo'n aspect zijn:
+	
+	\begin{itemize}
+		\item het opvragen van een specifiek document,
+		\item het opvragen van een lijst van documenten aan de hand van verschillende criteria,
+		\item het wijzigen van een specifiek document
+		\item het wijzigen van alle documenten die aan een bepaalde voorwaarde voldoen,
+		\item het verwijderen van een lijst van documenten die aan een bepaalde voorwaarde voldoen,
+		\item ...
+	\end{itemize}
+	\linebreak
+	De query's worden uitgevoerd in Elasticsearch en in MongoDB op beide datasets. Na elke query zal de uitvoeringstijd gelogd worden. Ook zal er gecontroleerd worden op data-verlies. Eens de resulaten er zijn kunnen er conclusies getrokken worden.
 	
 	%---------- Verwachte resultaten ----------------------------------------------
 	\section{Verwachte resultaten}
 	\label{sec:verwachte_resultaten}
 	
-	Van Elasticsearch wordt er verwacht dat het specifiek zoeken betere resultaten met zich meebrengt. Als we wat algemener gaan zoeken zouden de resultaten met MongoDB gelijk moeten lopen. Over de correctheid van de resulaten van de query's mogen we verwachten dat er in Elasticsearch een minimum aan data-verlies is terwijl we in MongoDB geen data-verlies hebben. Bij het toevoegen, aanpassen en verwijderen van data zijn de resultaten moeilijker te voorspellen maar ook hier zou Elasticsearch de bovenhand moeten nemen.
+	Van Elasticsearch wordt er verwacht dat het uitvoeren van acties op specifieke documenten betere resultaten met zich meebrengt. Als we algemenere criteria meegeven zouden de resultaten met MongoDB gelijk moeten lopen. Over de correctheid van de resulaten van de query's mogen we verwachten dat er in Elasticsearch een minimum aan data-verlies is terwijl we in MongoDB geen data-verlies hebben. Bij het toevoegen, aanpassen en verwijderen van data zijn de resultaten moeilijker te voorspellen maar ook hier zou Elasticsearch de bovenhand moeten nemen.
+	\\
+	Een voorbeeld van een deel van de resultaten kan het volgende zijn. Er wordt een lijst gegeven van de eerste 3 query's met een verduidelijking wat de query's doen. Voor dit voorbeeld speelt de structuur van de query geen rol. Daarnaast komt een grafiek die duidelijk weergeeft wat de uitvoeringstijden van de query's bedragen (Figuur \ref{fig:example}). Elke query wordt op de 4 datasets meermaals uitgevoerd. De gemiddelden komen in de grafiek terecht. In dit voorbeeld zou de eerste query een document kunnen ophalen aan de hand van het document ID. Elasticsearch zal dit zeer snel kunnen doen en wanneer de dataset vergroot zal deze snelheid niet veranderen omdat er maar 1 node overlopen zou worden. De tweede query zou een iets algemenere zoekopdracht kunnen voorstellen waarbij we zien dat de schaalbaarheid minder efficiënt wordt en dat het verschil met MongoDB iets kleiner is. De derde query zou de volledige lijst met documenten kunnen opvragen. Ook hier verwachten we dat Elasticsearch de snelste is. Vooral als de grootte van de dataset toeneemt.
+	\begin{figure}
+		\includegraphics[width=.5\textwidth,center]{graph}
+		\caption{Voorbeeld}
+		\label{fig:example}
+	\end{figure}
+	
 	
 	%---------- Verwachte conclusies ----------------------------------------------
 	\section{Verwachte conclusies}
 	\label{sec:verwachte_conclusies}
 	
-	De verwachtingen voor de uitvoeringstijd bij Elasticsearch liggen hoog. Ik verwacht dat de voor- en nadelen die uit de resultaten vloeien een afschrikwekkend effect zullen hebben op veel developers maar dat de lage uitvoeringstijd veel goed kan maken. Langs de andere kant verwacht ik dat dit onderzoek aantoont dat het mogelijk is om Elasticsearch als databank te gebruiken en er dus niet altijd een koppeling met een echte databank moet zijn.
+	De verwachtingen voor de uitvoeringstijd bij Elasticsearch liggen hoog. Ik verwacht dat de vooral de nadelen die uit de resultaten vloeien een afschrikwekkend effect zullen hebben op veel developers maar dat de lage uitvoeringstijd veel goed kan maken. Langs de andere kant verwacht ik dat dit onderzoek aantoont dat het mogelijk is om Elasticsearch als databank te gebruiken en er dus niet altijd een koppeling met een echte databank moet zijn.
 	
 	%------------------------------------------------------------------------------
 	% Referentielijst
