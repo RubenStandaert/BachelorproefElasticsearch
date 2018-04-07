@@ -1,26 +1,58 @@
-@book{Knuth1998,
- author = {Knuth, Donald E.},
- title = {The art of computer programming,  volume 3: (2nd ed.) sorting and searching},
- year = {1998},
- publisher = {Addison Wesley Longman Publishing Co., Inc.},
- address = {Redwood City, CA, USA}
+% Encoding: UTF-8
+
+@Thesis{Berglund2013,
+  author      = {Berglund, Per},
+  title       = {Shard Selection in Distributed Collaborative Search Engines},
+  year        = {2013},
+  abstract    = {To increase their scalability and reliability many search engines today are distributed
+systems. In a distributed search engine several nodes collaborate in handling the search
+operations. Usually each node is only responsible for one or a few parts of the index
+used for storing and searching. These smaller index parts are usually referred to as
+shards.
+Lately ElasticSearch has emerged as a popular distributed search engine intended for
+medium- and large scale searching. An ElasticSearch cluster could potentially consist of
+a lot of nodes and shards. Sending a search query to all nodes and shards might result
+in high latency when the size of the cluster is large or when the nodes are far apart
+from each other. ElasticSearch provides some features for limiting the number of nodes
+which participate in each search query in special cases, but generally each query will be
+processed by all nodes and shards.
+Shard selection is a method used to only forward queries to the shards which are estimated
+to be highly relevant to a query. In this thesis a shard selection plugin called
+SAFE has been developed for ElasticSearch. SAFE implements four state of the art
+shard selection algorithms and supports all current query types in ElasticSearch. The
+purpose of SAFE is to further increase the scalability of ElasticSearch by limiting the
+number of nodes which participate in each search query. The cost of using the plugin is
+that there might be a negative effect on the search results.
+The purpose of this thesis has been to evaluate to which extent SAFE affects the search
+results in ElasticSearch. The four implemented algorithms have been compared in three
+different experiments using two different data sets. Two new metrics called Pk@N and
+Modified Recall have been developed for this thesis which measures the relative performance
+between exhaustive search and shard selection in a search engine like ElasticSearch.
+The results indicate that three algorithms in SAFE perform very well when documents
+are distributed to shards depending on which linguistic topic they belong to. However if
+documents are randomly allocated to shards, which is the standard approach in ElasticSearch,
+then SAFE does not show any significant results and seems to be unusable.
+This thesis shows that if a suitable document distribution policy is used and there is a
+tolerance for losing some relevant documents in the search results then a shard selection
+implementations like SAFE could be used to further increase the scalability of a
+distributed search engine, especially in a low resource environment.},
+  date        = {2013-06},
+  institution = {University of Gothenburg},
+  keywords    = {elasticsearch, shard selection, SAFE, scalability},
+  type        = {mathesis},
+  url         = {https://findwise.com/labs/sites/default/files/reports/shard_selection_elastics.pdf},
 }
 
-@book{Pollefliet2011,
-  author = {Pollefliet, Leen},
-  title = {Schrijven van verslag tot eindwerk: do's en don'ts},
-  year = {2011},
-  publisher = {Academia Press},
-  address = {Gent}
+@Online{Brasetvik2013s,
+  author       = {Brasetvik, Alex},
+  title        = {Elasticsearch as a NoSQL Database},
+  howpublished = {https://www.elastic.co/blog/found-elasticsearch-as-nosql},
+  month        = {09},
+  year         = {2013},
+  abstract     = {Can Elasticsearch be used as a "NoSQL"-database? NoSQL means different things in different contexts, and interestingly it's not really about SQL. We will start out with a "Maybe!", and look into the various properties of Elasticsearch as well as those it has sacrificed, in order to become one of the most flexible, scalable and performant search and analytics engines yet.},
+  keywords     = {elasticsearch, database, transactions, relations, constraints, security},
+  timestamp    = {2017-09-12},
+  url          = {https://www.elastic.co/blog/found-elasticsearch-as-nosql},
 }
 
-@article{Creeger2009,
-  author = {Creeger, Mache},
-  journal = {Communications of the ACM},
-  number = {8},
-  pages = {50--56},
-  title = {{CTO Roundtable: Cloud Computing}},
-  volume = {52},
-  year = {2009}
-}
-
+@Comment{jabref-meta: databaseType:bibtex;}
