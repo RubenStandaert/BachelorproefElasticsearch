@@ -11,11 +11,35 @@
 %% mogelijke manier toegepast hebt om een antwoord te vinden op de
 %% onderzoeksvraag.
 
+\section{Literatuurstudie}
+
+\textbf{INLEIDING LITERATUURSTUDIE}
+
+\subsection{Installatie}
+
+Elasticsearch is gratis als je zelf gaat hosten. De installatie verloopt zeer snel. Eerst moet je zorgen dat je Java hebt staan op je computer. Daarna download je een versie van Elasticsearch naar keuze op hun website. Pak het bestand uit en je bent klaar om je eerste node op te starten. Als dat allemaal te moeilijk lijkt is er ook een grafische user interface beschikbaar via de MSI installer package. Op hun website vind je stap voor stap hoe je de installatie kunt uitvoeren. 
+
+Er hangen niet zoveel nadelen vast aan het zelf hosten van Elasticsearch. Je moet over voldoende ruimte beschikken op je harde schijf. Dat kan moeilijk worden wanneer men met grote hoeveelheden data werkt. Het is ook belangrijk om te weten dat je zelf verantwoordelijk bent voor eventuele downtimes. Het is dus perfect mogelijk om Elasticsearch volledig gratis te gebruiken. 
+
+Wanneer men beslist om te betalen voor de hosting bij Elasticsearch krijgt men enkele voordelen mee. De eerder vermelde problemen in verband met ruimte op je harde schijf en downtimes zijn niet langer van toepassing.  Aan de hosting zijn een aantal Service Level Agreements gebonden die ervoor zorgen dat je verzekerd bent op een goede kwaliteit en op voldoende support. De kostprijs is 36,53 EUR per maand. Er is ook een mogelijkheid om vooraf een proefversie van 14 dagen te gebruiken 
+
+\subsection{Data importeren in Elasticsearch}
+
+Om data te exporteren van uw databank naar Elasticsearch zijn er een aantal mogelijkheden. De eerste mogelijkheid is er één die Elasticsearch zelf aanbiedt. Daarvoor maken ze gebruik van een ander product uit de Elastic Stack: Logstash. \textbf{GEEF IK HIER UITLEG OVER ELASTIC STACK?} Logstash is een tool om data te verwerken, te transformeren en uit te wisselen. Het is een product waar ook veel informatie en support van te vinden is. Logstash is dus een tool die veel flexibiliteit biedt maar vraagt wel een extra installatie. 
+
+Daarnaast zijn er een aantal tools die aangeboden worden door de community. Van die tools is er in het algemeen minder support te vinden. Nog een nadeel is dat het niet altijd mogelijk is om uw data naar de laatste versie van Elasticsearch te exporteren. De versies van de tools lopen namelijk in het algemeen achter op de nieuwste versie van Elasticsearch. 
+
+Zowel Logstash als de meeste tools die worden aangeboden door de community bieden ook de functionaliteit aan om data te synchroniseren. Dat wil zeggen dat, wanneer uw data veranderd in uw databank, die veranderingen ook doorgevoerd worden in Elasticsearch. 
+
+\textbf{VERDERE LITERATUURSTUDIE}
+
+\section{Casus}
+
 Om enkele voor- en nadelen uit de literatuurstudie te bevestigen of te ontkrachten heb ik een project opgezet in Elasticsearch. In het project voerde ik een aantal data-analyses uit met als doel een antwoord te krijgen op enkele interessante vragen. Tijdens het opzetten van het project en het uitvoeren van de data-analyses kon ik bepalen welke voor- en nadelen, die uit de literatuurstudie komen, echt van toepassing zijn. Daarnaast kwam ik ook nieuwe moeilijkheden en sterktes van Elasticsearch tegen die kunnen aansluiten bij het resultaat van de literatuurstudie.
 
 Een voordeel van een project opzetten om bepaalde zaken zelf te gaan ondervinden is dat men de grootte van het voor- of nadeel beter kan inschatten. Als men bijvoorbeeld een zwakte van Elasticsearch ondervind, dan zal men toch een antwoord op de vooraf opgestelde vraag moeten krijgen. Men zal dan ondervinden in hoeverre Elasticsearch toch in staat is om als hulpmiddel te dienen bij het oplossen van de vraag. Of misschien is er workaround waardoor de zwakte eigenlijk niet zo'n groot probleem is. Dat is informatie die met een literatuurstudie moeilijker te verkrijgen is.
 
-\section{De dataset}
+\subsection{De dataset}
 De dataset heb ik verkregen van het bedrijf waar ik mijn stage doe. Insites Consulting is een consulting bureau die haar klanten ondersteund in het nemen van doorslaggevende beslissingen. Dat doet men aan de hand van marktonderzoek. Uit de resultaten van zo'n marktonderzoek creërt men dan inzichten die worden doorgegeven aan de klant. 
 
 De ervaring leert dat het soms moeilijk is voor de klant om zo'n inzicht te benutten. In andere gevallen komen de resultaten van het marktonderzoek ergens in een documentje op de computer van de klant en wordt er verder niks mee gedaan. Insites Consulting bouwde enkele jaren geleden een applicatie die dit probleem tegengaat. De applicatie heet Insight Activation Studio. Elke klant krijgt een unieke Studio die aangepast wordt naar de noden, waarden en kleuren van de klant. Die aanpassingen gebeuren in eerste instantie door mensen van Insites Consulting maar ook de klant heeft een dashboard ter beschikking. Een dashboard is een geïsoleerd stuk van de applicatie die admin-gebruikers toelaat om de studio van hun bedrijf te beheren.  
@@ -26,21 +50,31 @@ De Insights Academy is een feature die in de Studio verweven zit. Daarop kunnen 
 
 De dataset die ik gebruikte in mijn project is de SQL Server dataset van de Insight Activation Studio. Een uitleg van de tabellen wordt telkens gegeven wanneer ze van toepassing zijn. Een script om de dataset te creëren in SQL Server kunt u vinden in Bijlage 1. \textbf{TODO: BIJLAGE 1 toevoegen} Alle namen van personen die in de dataset voorkomen werden willekeurig gegenereerd om anonimiteit te verzekeren.
 
-\section{De vragen}
+\subsection{De vragen}
 De vragen heb ik verkregen van mijn co-promoter, Ken Vanderbeken, die Lead Developer is aan de Insight Activation Studio. Voor hem is het zeer interessant om te weten of er aspecten zijn die bepalen of een tile succesvol is. Een tile stelt een inzicht voor en een inzicht tot leven brengen is net de primaire doelstelling van de applicatie. Daarom gaan alle vragen daarover. Om te bepalen of een tile succesvol is keek ik hoeveel likes en comments de tile heeft.
 
 De vragen zijn de volgende:
 \begin{itemize}
 	\item Werken bepaalde tile types beter dan andere? Meer response? (like/comment) 
 	\item Waar gebeuren de meeste likes? Vanaf de homepage of op wall pages?
-	\item Heeft de lengte van de titel van een tile invloed op aantal comments en/of likes? 
-	\item Heeft de lengte van de description van een tile invloed op aantal comments en/of likes? 
+	\item Heeft de lengte van de titel van een tile invloed op aantal likes? 
+	\item Heeft de lengte van de description van een tile invloed op aantal likes? 
 \end{itemize}
 
-\section{Opzetten van het project}
+\subsection{Opzetten van het project}
 
+Voor de installatie van Elasticsearch verwijs ik graag naar \textbf{SECTION} aangezien alles verliep zoals het daar beschreven staat. Ik maakte geen gebruik van de grafische user interface aangezien het over een eenvoudige installatie gaat.
 
-\section{Uitvoeren van de data-analyses}
+Om de data te exporteren heb ik gekozen voor een tool die ondersteund wordt door de community: JBDC importer for Elasticsearch. Mijn keuze is niet uitgegaan naar Logstash omdat er in de gids vermeld staat dat Logstash vooral gebruikt wordt om logs op te slaan. Ook had ik geen nood aan alle features die Logstash te bieden heeft. De methode van de JBDC importer leek me in mijn geval veel bruikbaarder. \textbf{(LINK?)} 
+
+Ik begon met de JBDC importer versie 2.3.4.1 te downloaden en uit te pakken. De uitgepakte map bevat een modelscript dat slechts een aantal aanpassingen nodig heeft om uitgevoerd te kunnen worden. Het script laat je toe om een query naar uw databank te sturen, en de resultaten op te slaan in één van uw Elasticsearch indices. Daarna downloadde ik de SQL Server JDBC driver versie 6.2 en kopieerde die naar de lib map in de JDBC importer. Deze stap is onnodig indien men met een MySQL databank werkt. 
+
+De voorlaatste stap is het aanmaken van de indices. Een index aanmaken in Elasticsearch is zeer eenvoudig.\textbf{ SCRIPT}
+Per index moet het modelscript, mits een aantal aanpassingen, uitgevoerd worden. 
+
+\textbf{SCRIPT }
+
+\subsection{Uitvoeren van de data-analyses}
 Nadat ik de dataset succesvol overzette werd het tijd om met Elasticsearch te leren werken. Een belangrijk voordeel van de zoek- en analyse machine is dat er veel support is. Op hun website bieden ze een zeer uitgebreide, gestructureerde gids aan die alle mogelijkheden van Elasticsearch overloopt. In de gids kan men ook de versie kiezen waarop men werkt. Op die manier blijft de informatie steeds relevant. De gids wordt goed onderhouden wat wil zeggen dat er steeds informatie over de nieuwste versie van Elasticsearch ter beschikking is. 
 
 Ik had geen voorkennis van de taal noch de structuur die gebruikt wordt om de API van Elasticsearch aan te spreken. Waar ik wel een grondige voorkennis van had was de query language van SQL Server. Die voorkennis kwam goed van pas omdat er vanuit de guides van Elasticsearch met regelmaat verwezen wordt naar de query language van SQL Server. Dat vergemakkelijkte mijn leerproces. Je zou kunnen stellen dat gebruikers zonder die voorkennis dan sterk benadeeld worden maar de makers van de gids zorgden ervoor dat je ook zonder die voorkennis de verschillende aspecten van Elasticsearch kunt begrijpen. Kennis van de query language van SQL Server geeft dus een boost aan het leerproces maar is zeker geen verplichting.
@@ -49,7 +83,7 @@ Naast de uitstekende gids kan men ook vragen stellen op het forum die toegankeli
 
 Hieronder volgt nogmaals een opsomming van de vragen waarop ik een antwoord zocht via Elasticsearch. Bij elke vraag toon ik aan hoe ik te werk ben gegaan, welke moeilijkheden ik ondervond en welke sterktes van Elasticsearch ik ondervond. Om de API aan te spreken gebruikte ik Postman. Dat is een persoonlijke voorkeur. Elke andere API client zal hiervoor werken.
 
-\subsection{Werken bepaalde tile types beter dan andere?}
+\subsubsection{Werken bepaalde tile types beter dan andere?}
 Om een antwoord op deze vraag te vinden hebben we 2 indices uit de dataset nodig: de tile-index en de tiletype-index. Er bestaat een één op veel relatie tussen tile en tiletype. Een tile houdt steeds het id van zijn tiletype bij. We zullen de tiles eerst moeten groeperen per type waarna we per groep de gemiddelde activiteit berekenen. Uit de resulaten zal blijken of tiles van een bepaalde tiletype meer activiteit vertonen dan andere. De activiteit wordt beschouwd als de som van het aantal likes en het aantal comments.
 
 Elasticsearch biedt een oplossing voor dit probleem. Met aggregaties wordt het mogelijk om documents te groeperen. In de gids over aggregaties wordt de vergelijking gemaakt met het GROUP BY sleutelwoord in SQL Server. Daarbij vermelt men dat aggregaties in Elasticsearch echter veel meer mogelijkheden bieden. Zo bestaan er een 50-tal soorten aggregaties. Dat is een groot aantal die het gebruik ervan complex maakt. Zeker omdat aggregaties ook genest kunnen worden. Dat wil zeggen dat men binnen een aggregatie opnieuw een aggregatie kan doen. De flexibiliteit is echter zeer hoog omdat de mogelijkheden enorm zijn. Mijn ervaringen tot nu toe spreken dus tegen met \textbf{TODO: BRON} waarin verteld wordt dat Elasticsearch minder flexibiliteit biedt dan SQL Server. Bij het oplossen van de volgende vraag kom ik hier op terug. \textbf{TODO: BEN JE HIEROP TERUGGEKOMEN?}
@@ -100,7 +134,7 @@ Het antwoord op de eerste vraag luidt: Ja, tiles met tiletype idea werken beter 
 	\label{fig:scriptresult2}
 \end{figure}
 
-\subsection{Waar gebeuren de meeste likes? Vanaf de homepage of op wall pages?}
+\subsubsection{Waar gebeuren de meeste likes? Vanaf de homepage of op wall pages?}
 Om deze vraag te beantwoorden hebben we 3 indices nodig: like, log en logtype. Wanneer een gebruiker naar de homepage navigeert dan wordt dat gelogd in de log-tabel met logtype 8. Wanneer een gebruiker naar een wall page navigeert dan wordt dat gelogd in de log-tabel met logtype 10. Wanneer een gebruiker een tile liked dan komt er een nieuw record in de like tabel. Bij dit probleem zullen we wel verplicht zijn om een nieuwe index te maken. We willen namelijk 3 indices samennemen en we zijn geïntereseerd in alle documents.
 
 Voor onze nieuwe index willen we de volgende structuur: de id van de like, de datum en tijd van de laatste log van de gebruiker voordat de like plaatsvond, de datum en tijd van het liken en de plaats waarop de gebruiker geliked heeft. We maken een nieuwe index aan genaamd question2 en schrijven een script om de data te importeren. Het SQL-script is te zien in figuur \ref{fig:script3}.
@@ -115,3 +149,8 @@ Voor onze nieuwe index willen we de volgende structuur: de id van de like, de da
 
 De index staat klaar en nu moeten we enkel nog een aggregatie doen op de plaats vanwaar er geliked werd. De URL van de query ziet er als volgt uit: http://localhost:9200/question2/\textunderscore search. In de body \textbf{TODO: figure body} geven we mee dat we een aggregatie willen op het liked\textunderscore from-veld. \textbf{TODO: result}.
 
+\subsubsection{Heeft de lengte van de titel van een tile invloed op aantal likes}
+
+Om het verband de tussen twee variabelen te berekenen zullen we een chi-kwadraattoets uitvoeren. \textbf{GEEF IK HIER UITLEG OVER DE CHI-KWADRAATTOETS?} Indien uit het resultaat blijkt dat er een verband is zullen we de sterkte van het verband berekenen met Cramers V. Elasticsearch biedt geen ondersteuning voor dergelijke berekeningen. Deze kunnen nochtans zeer interessant zijn bij het maken van een data-analyse. Om toch een antwoord op de vraag te krijgen zullen we Elasticsearch als hulp gebruiken bij het uitvoeren van de chi-kwadraattoets. Op die manier zal het duidelijk worden in hoeverre Elasticsearch ons kan helpen bij ingewikkelde calculaties zoals de chi-kwadraattoets en Cramers V. 
+
+Bij het opbouwen van onze tabel gaan we zowel de lengte van de titel alsook het aantal likes opdelen in klassen. We willen een zicht krijgen van de grootte die een klasse moet krijgen. Daarom vragen we aan Elasticsearch hoelang de langste titel is en wat het grootste aantal likes is. \textbf{QUERIES} 
