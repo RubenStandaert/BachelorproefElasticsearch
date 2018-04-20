@@ -12,11 +12,74 @@ Soms wil je de auteur niet expliciet vernoemen, dan gebruik je \texttt{$\backsla
 
 \textcite{Knuth1998} schreef een van de standaardwerken over sorteer- en zoekalgoritmen. Experten zijn het erover eens dat cloud computing een interessante opportuniteit vormen, zowel voor gebruikers als voor dienstverleners op vlak van informatietechnologie~\autocite{Creeger2009}.
 
+{Wat kan het? 
+
+Search (met bovenvermelde features), Data-analyse (met bovenvermelde features), logging 
+
+Wie gebruikt het? 
+
+Enkele merkwaardige gebruikers van Elasticsearch zijn Netflix, Github, Facebook, Cisco, Microsoft en Adobe. Ook Zalando, Just Eat, Blizzard, Ebay, Warner Brothers, BBC, Walmart, Uber, Tinder, Mozilla, Activision, Orange, ... (bron https://www.elastic.co/use-cases)
+
 \section{Stand van zaken}
 \label{sec:stand-van-zaken}
 
 %% TODO: deze sectie (die je kan opsplitsen in verschillende secties) bevat je
 %% literatuurstudie. Vergeet niet telkens je bronnen te vermelden!
+\textbf{INLEIDING LITERATUURSTUDIE}
+
+\textbf{Technish}
+
+\begin{itemize}
+	\item  Java search server built on top of Apache Lucene. Like Solr, it is run in a Java
+	application server. All commands are also sent through HTTP requests. nieuw 3.3.2
+	\item Cluster: verzameling van nodes. De eerste heeft Elasticsearch als naam. Alle clusters samen stellen uw data voor. (ongelimiteerd aantal nodes) 
+	
+	Node: krijgen standaard een UUID en komen bij de Elasticsearch cluster tenzij anders gedefinieerd 
+	
+	Index: een verzameling van documents met gelijkaardige karakteristieken 
+	
+	Shards: een index kan zeer groot worden. Elasticsearch voorziet shards om die index op te delen in stukken. (partitions ???) Het zijn de shards waarvan er replica's gemaakt worden. https://www.elastic.co/guide/en/elasticsearch/reference/current/\textunderscore basic\textunderscore concepts.html
+	\item Geen schema nodig. Geef een JSON en Elasticsearch herkent de datatypes. Geen schema nodig betekent niet schema free maar schema flexible omdat je het schema kunt aanpassen voor optimalisering. Brasetvik + nieuw 3.3.2
+	
+	\item Zeer sterk in schaalbaarheid. Bij het toevoegen van een nieuwe node worden de shards verplaatst zodat de nodige opslagruimte minimaal blijft. Berglund (zie voorstel)  
+	
+	\item Gebruiken in de taal die je wilt (ondersteunde talen zijn: Curl, Java, C\#, Python, JavaScript, PHP, Perl, Ruby)
+	
+	\item CP-systeem -> Consistency-Partition tolerance met een zwakke definitie voor consistency weliswaar. 
+	Kan AP (availability) worden als je een read-only workload maakt. 
+	
+	\item Concurrency control wordt gedaan aan de hand van versienummers van de documents. Een optimistische aanpak dat snelheid als voordeel heeft maar in uitzonderlijke gevallen foute resultaten in de data-analyses kan leveren 
+\end{itemize}
+
+\subsection{Installatie}
+\label{Installatie}
+
+Elasticsearch is gratis als je beslist om zelf te hosten. De installatie verloopt zeer snel. Eerst moet je zorgen dat Java geïnstalleerd staat op je computer. Daarna download je een versie van Elasticsearch naar keuze via hun website. Pak het bestand uit en je bent klaar om je eerste cluster op te starten. Als dat te moeilijk is kan men gebruik maken van een grafische user interface die beschikbaar is via de MSI installer package. Op hun website staat stap voor stap uitgelegd hoe je de installatie kunt uitvoeren. 
+
+Er hangen niet zoveel nadelen vast aan het zelf hosten van Elasticsearch. Ten eerste moet je over voldoende ruimte beschikken op je harde schijf. Dat kan moeilijk worden wanneer men met grote hoeveelheden data werkt. Ten tweede is het belangrijk om te weten dat je zelf verantwoordelijk bent voor eventuele downtimes. Het is dus perfect mogelijk om Elasticsearch volledig gratis te gebruiken. 
+
+Wanneer men beslist om te betalen voor de hosting bij Elasticsearch krijgt men enkele voordelen mee. De eerder vermelde problemen in verband met ruimte op je harde schijf en downtimes zijn niet langer van toepassing.  Aan de hosting zijn een aantal Service Level Agreements gebonden die ervoor zorgen dat je verzekerd bent op een goede kwaliteit en op voldoende support. De kostprijs is 36,53 EUR per maand. Er is ook een mogelijkheid om vooraf een proefversie van 14 dagen te gebruiken.
+
+\subsection{Data importeren in Elasticsearch}
+
+Om data te exporteren van uw databank naar Elasticsearch zijn er een aantal mogelijkheden, afhankelijk van welke databank u gebruikt. De eerste mogelijkheid is er één die Elasticsearch zelf aanbiedt. Daarvoor maken ze gebruik van een ander product uit de Elastic Stack\footnote{De Elastic Stack is een verzameling van open-source producten van Elastic.}: Logstash. Logstash is een tool om data te verwerken, te transformeren en uit te wisselen. Het is een product waar veel informatie en support over te vinden is. Logstash is dus een tool die veel flexibiliteit biedt maar vraagt wel een extra installatie. 
+
+Daarnaast zijn er een aantal tools die aangeboden worden door de community. Van die tools is er in het algemeen minder support te vinden. Nog een nadeel is dat het niet altijd mogelijk is om uw data naar de laatste versie van Elasticsearch te exporteren. De versies van de tools lopen namelijk in het algemeen achter op de nieuwste versie van Elasticsearch. 
+
+Zowel Logstash als de meeste tools die worden aangeboden door de community bieden ook de functionaliteit aan om data te synchroniseren. Dat wil zeggen dat, wanneer uw data veranderd in uw databank, die veranderingen ook doorgevoerd worden in Elasticsearch. In veel use cases zal dit veel voordelen bieden. 
+
+\textbf{VERDERE LITERATUURSTUDIE}
+
+\begin{itemize}
+	\item Elasticsearch biedt veel features zoals full text-search, suggesties (did you mean), results highlighting, custom document scoring (relevantie berekenen bijvoorbeeld aantal matches, lengte van het veld, ...) 
+	\item Open Source
+	\item De query DSL van Elasticsearch is minder gebruikelijk en minder flexibel dan die van SQL. Dat betekent dat je, ondanks de hoge leercurve, minder flexibiliteit hebt.  
+	\item Geen vorm van security. (alle gebruikers zijn super admin) 
+	\item relaties: Bresetvik Elasticsearch is a document oriented database. The entire object graph you want to search needs to be indexed, so before indexing your documents, they must be denormalized. Denormalization increases retrieval performance (since no query joining is necessary), uses more space (because things must be stored several times), but makes keeping things consistent and up-to-date more difficult (as any change must be applied to all instances). They're excellent for write-once-read-many-workloads, however.
+	\item nieuw zegt dat het poorly documented is (2012) nu wel goed
+\end{itemize}
+
+
 
 
 \section{Probleemstelling en Onderzoeksvragen}
