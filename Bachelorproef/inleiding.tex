@@ -25,31 +25,30 @@ Enkele merkwaardige gebruikers van Elasticsearch zijn Netflix, Github, Facebook,
 
 %% TODO: deze sectie (die je kan opsplitsen in verschillende secties) bevat je
 %% literatuurstudie. Vergeet niet telkens je bronnen te vermelden!
-\textbf{INLEIDING LITERATUURSTUDIE}
-
-\textbf{Technish}
 
 \begin{itemize}
-	\item  Java search server built on top of Apache Lucene. Like Solr, it is run in a Java
-	application server. All commands are also sent through HTTP requests. nieuw 3.3.2
-	\item Cluster: verzameling van nodes. De eerste heeft Elasticsearch als naam. Alle clusters samen stellen uw data voor. (ongelimiteerd aantal nodes) 
-	
-	Node: krijgen standaard een UUID en komen bij de Elasticsearch cluster tenzij anders gedefinieerd 
-	
-	Index: een verzameling van documents met gelijkaardige karakteristieken 
-	
-	Shards: een index kan zeer groot worden. Elasticsearch voorziet shards om die index op te delen in stukken. (partitions ???) Het zijn de shards waarvan er replica's gemaakt worden. https://www.elastic.co/guide/en/elasticsearch/reference/current/\textunderscore basic\textunderscore concepts.html
-	\item Geen schema nodig. Geef een JSON en Elasticsearch herkent de datatypes. Geen schema nodig betekent niet schema free maar schema flexible omdat je het schema kunt aanpassen voor optimalisering. Brasetvik + nieuw 3.3.2
-	
-	\item Zeer sterk in schaalbaarheid. Bij het toevoegen van een nieuwe node worden de shards verplaatst zodat de nodige opslagruimte minimaal blijft. Berglund (zie voorstel)  
-	
 	\item Gebruiken in de taal die je wilt (ondersteunde talen zijn: Curl, Java, C\#, Python, JavaScript, PHP, Perl, Ruby)
 	
-	\item CP-systeem -> Consistency-Partition tolerance met een zwakke definitie voor consistency weliswaar. 
-	Kan AP (availability) worden als je een read-only workload maakt. 
-	
-	\item Concurrency control wordt gedaan aan de hand van versienummers van de documents. Een optimistische aanpak dat snelheid als voordeel heeft maar in uitzonderlijke gevallen foute resultaten in de data-analyses kan leveren 
 \end{itemize}
+
+Elasticsearch is een zoekmachine die in Java geschreven is. De zoekmachine werd boven de Java library Apache Lucene gebouwd. Alle commando's worden verzonden door HTTP requests naar de Elasticsearch REST API. Die API is op JSON gebaseerd. Dat wil zeggen dat de mogelijkheid bestaat om JSON mee te geven aan de HTTP requests. Ook de resultaten worden in JSON teruggegeven. Naast een zoekmachine te zijn wordt Elasticsearch ook gebruikt voor data-analyses en om aan logging te doen. 
+
+Shay Banon creëerde Elasticsearch in een zodanige manier dat het een gedistribueerd systeem werd. Een gedistribueerd systeem brengt zowel voordelen als nadelen met zich mee. Volgens \textcite{Brasetvik2013s} focussen verschillende systemen op verschillende sterktes, afhankelijk van welke eigenschappen belangrijker zijn voor het systeem. Daarbij wordt gezegd dat Elasticsearch focust op snelheid. Het streeft naar real-time search. Om dat de kunnen bereiken in een gedistribueerd systeem worden een aantal zaken aan de kant geschoven of vereenvoudigd. Een voorbeeld hiervan is concurrency control. Dat wordt gedaan aan de hand van versienummers van de documents. Een optimistische aanpak dat snelheid als voordeel heeft maar in uitzonderlijke gevallen foute resultaten in de zoekopdrachten en data-analyses kan opleveren. In een zoekopdracht is het misschien nog aanvaardbaar dat sommige resultaten niet worden weergegeven. Zeker als dat ervoor zorgt dat men over real-time search kan spreken. In een data-analyse is het echter zeer belangrijk dat de resultaten correct zijn. Een tweede manier om aan snelheid te winnen in een gedistribueerd systeem is caching. Elasticsearch doet vaak aan caching om niet telkens opnieuw alle data te moeten opvragen. Data waarnaar verwezen wordt in de cache kan ondertussen aangepast of verwijderd worden. Dat heeft opnieuw een negatief effect op consistentie en een positief effect op snelheid.
+
+Over het algemeen is er sprake van een CP-systeem \footnote{Een systeem dat consistent en partitie tolerant is maar niet altijd beschikbaar} met een zwakke definitie voor consistentie. Wanneer met Elasticsearch enkel gebruik om data uit te lezen bereikt men een AP-systeem \footnote{Een systeem dat altijd beschikbaar en partitie tolerant is maar niet consistent} waarbij consistentie niet meer van toepassing is. Ook het probleem waarbij gecachete data verouderd is geen probleem meer wanneer men enkel data uitleest.
+
+\textcite{Gausser2012} schrijft dat één van de belangrijkste sterktes van de zoekmachine is dat het gebruikmaakt van een schema-less data model. Hierdoor kan elk JSON document aan Elasticsearch toegevoegd worden. Dat zorgt voor veel flexibiliteit en minder configuratiewerk voor de gebruikers. De zoekmachine is zeer sterk in het herkennen van eenvoudige datatypes zoals nummers, booleans en timestamps \autocite{Brasetvik2013s}. Het rekenen met variabelen van die datatypes wordt daardoor toch mogelijk gemaakt zonder expliciet te moeten meegeven wat de datatypes zijn. \textcite{Brasetvik2013s} gebruikt liever de term schema flexible aangezien er wel een mogelijkheid bestaat om een schema mee te geven. Een reden om zelf uw schema mee te geven is om uw data op punt te stellen en zo de zoeksnelheden te doen laten stijgen. 
+
+\subsection{Schaalbaarheid}
+ Cluster: verzameling van nodes. De eerste heeft Elasticsearch als naam. Alle clusters samen stellen uw data voor. (ongelimiteerd aantal nodes) 
+
+Node: krijgen standaard een UUID en komen bij de Elasticsearch cluster tenzij anders gedefinieerd 
+
+Index: een verzameling van documents met gelijkaardige karakteristieken 
+
+Shards: een index kan zeer groot worden. Elasticsearch voorziet shards om die index op te delen in stukken. (partitions ???) Het zijn de shards waarvan er replica's gemaakt worden. https://www.elastic.co/guide/en/elasticsearch/reference/current/\textunderscore basic\textunderscore concepts.html
+
+Zeer sterk in schaalbaarheid. Bij het toevoegen van een nieuwe node worden de shards verplaatst zodat de nodige opslagruimte minimaal blijft. Berglund (zie voorstel)  
 
 \subsection{Installatie}
 \label{Installatie}
