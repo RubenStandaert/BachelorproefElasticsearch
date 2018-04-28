@@ -73,7 +73,14 @@ performed. Finally, a future outlook is briefly discussed.},
   institution = {Hochschule Karlsruhe Technik und Wirtschaft},
   keywords    = {Document management, ranking, search, information retrieval, Solr, Xapian, elasticsearch, Python },
   type        = {bathesis},
-  url         = {https://findwise.com/labs/sites/default/files/reports/shard_selection_elastics.pdf},
+  url         = {https://cds.cern.ch/record/1456329/files/CERN-THESIS-2012-074.pdf},
+}
+
+@Book{,
+  title     = {Elasticsearch Essentials},
+  publisher = {Packt Publishing},
+  year      = {2016},
+  author    = {Bharvi Dixit},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}
