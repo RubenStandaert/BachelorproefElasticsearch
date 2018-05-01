@@ -8,15 +8,6 @@
 \section{Stand van zaken}
 \label{sec:stand-van-zaken}
 
-\begin{itemize}
-	\item Gebruiken in de taal die je wilt (ondersteunde talen zijn: Curl, Java, C\#, Python, JavaScript, PHP, Perl, Ruby)
-	
-	Wie gebruikt het? 
-	
-	Enkele merkwaardige gebruikers van Elasticsearch zijn NASA, Netflix, Github, Facebook, Cisco, Microsoft en Adobe. Ook Zalando, Just Eat, Blizzard, Ebay, Warner Brothers, BBC, Walmart, Uber, Tinder, Mozilla, Activision, Orange, ... (bron https://www.elastic.co/use-cases)
-	
-\end{itemize}
-
 Elasticsearch is een zoekmachine die in Java geschreven is. De zoekmachine werd boven de Java library Apache Lucene gebouwd. Alle commando's worden verzonden door middel van HTTP requests naar de Elasticsearch REST API. Die API is gebaseerd op JSON. Dat wil zeggen dat de mogelijkheid bestaat om JSON mee te geven aan de HTTP requests. Ook de resultaten worden in JSON teruggegeven. Elasticsearch is niet enkel een zoekmachine maar wordt ook gebruikt voor data-analyses en om aan logging te doen. 
 
 Shay Bannon ontwierp Elasticsearch als een gedistribueerd systeem. Een gedistribueerd systeem brengt zowel voordelen als nadelen met zich mee. Volgens \textcite{Brasetvik2013} focussen verschillende systemen op verschillende sterktes, afhankelijk van welke eigenschappen belangrijker zijn voor het systeem. Daarbij wordt gezegd dat Elasticsearch focust op snelheid. Het streeft naar real-time search. Om dat de kunnen bereiken in een gedistribueerd systeem worden een aantal zaken aan de kant geschoven of vereenvoudigd. Een voorbeeld hiervan is concurrency control. Die wordt gedaan aan de hand van versienummers van de documents. Dit is wat we noemen een optimistische aanpak. Deze heeft als voordeel dat het sneller gaat maar in uitzonderlijke gevallen kan dit foute resultaten in de zoekopdrachten en data-analyses opleveren. In een zoekopdracht is het misschien nog aanvaardbaar dat sommige resultaten niet worden weergegeven. Zeker als dat ervoor zorgt dat men over real-time search kan spreken. In een data-analyse is het echter zeer belangrijk dat de resultaten correct zijn. Een tweede manier om aan snelheid te winnen in een gedistribueerd systeem is caching. Elasticsearch doet vaak aan caching om niet telkens opnieuw alle data te moeten opvragen. Dat heeft een negatief effect op het geheugen dat het systeem nodig heeft maar ook een zeer positief effect op de uitvoeringstijd.
@@ -27,7 +18,7 @@ Het CAP theorema stelt dat het onmogelijk is voor een gedistribueerd systeem om 
 
 \subsection{Elasticsearch archeologie}
 
-Om dit onderzoek beter te begrijpen worden de belangrijkste termen uit de archeologie van Elasticsearch bekeken. In het boek \textcite{Dixit2016} leert men hoe de archeologie van Elasticsearch in elkaar zit. Daarin staat dat een cluster een verzameling van nodes is die met elkaar verbonden zijn. De eerste cluster heeft standaard Elasticsearch als naam. Alle clusters samen stellen uw data voor. In figuur \ref{fig:ESArchitecture} van \textcite{Babaev2013} is te zien hoe zo'n cluster in elkaar zit. Een node is een instantie van Elasticsearch. Bij de creatie krijgt een node standaard een UUID en komt bij de Elasticsearch cluster tenzij anders gedefinieerd. In de nodes zitten de indices. Een index is een verzameling van documents met gelijkaardige karakteristieken. Hier slaat Elasticsearch data in op. Een index kan zeer groot worden. Het kan gebeuren dat de index te groot wordt om op de schijf van een node op te slaan. Daarom bestaat een index uit meerdere shards en replicas. Deze worden door Elasticsearch voorzien om een index op te delen in stukken. Een shard kan een primaire shard of een secundaire shard zijn. Operaties die data aanpassen gebeuren op primaire shards. Secundaire shards bevatten kopies van de data van de primaire shards en zorgt ervoor dat het zoeken snel gebeurd. Kopies van data bewaren heeft ook als effect dat er sprake is van een hoge beschikbaarheid. Wanneer een primaire shard stopgezet wordt sprint een secundaire shard in om de rol van de primaire shard te vervangen. Een veelgebruikt synoniem voor een secundaire shard is replica. Als laatste zijn er documents. Een document is een JSON object dat de key-value paren bevat van één object.
+Om dit onderzoek beter te begrijpen worden de belangrijkste termen uit de archeologie van Elasticsearch bekeken. In het boek van \textcite{Dixit2016} leert men hoe de archeologie van Elasticsearch in elkaar zit. Daarin staat dat een cluster een verzameling van nodes is die met elkaar verbonden zijn. De eerste cluster heeft standaard Elasticsearch als naam. Alle clusters samen stellen uw data voor. In figuur \ref{fig:ESArchitecture} van \textcite{Babaev2013} is te zien hoe zo'n cluster in elkaar zit. Een node is een instantie van Elasticsearch. Bij de creatie krijgt een node standaard een UUID en komt bij de Elasticsearch cluster tenzij anders gedefinieerd. In de nodes zitten de indices. Een index is een verzameling van documents met gelijkaardige karakteristieken. Hier slaat Elasticsearch data in op. Een index kan zeer groot worden. Het kan gebeuren dat de index te groot wordt om op de schijf van een node op te slaan. Daarom bestaat een index uit meerdere shards en replicas. Deze worden door Elasticsearch voorzien om een index op te delen in stukken. Een shard kan een primaire shard of een secundaire shard zijn. Operaties die data aanpassen gebeuren op primaire shards. Secundaire shards bevatten kopies van de data van de primaire shards en zorgt ervoor dat het zoeken snel gebeurd. Kopies van data bewaren heeft ook als effect dat er sprake is van een hoge beschikbaarheid. Wanneer een primaire shard stopgezet wordt sprint een secundaire shard in om de rol van de primaire shard te vervangen. Een veelgebruikt synoniem voor een secundaire shard is replica. Als laatste zijn er documents. Een document is een JSON object dat de key-value paren bevat van één object.
 
 \begin{figure}
 	\centering
@@ -38,41 +29,51 @@ Om dit onderzoek beter te begrijpen worden de belangrijkste termen uit de archeo
 
 \subsection{Schaalbaarheid}
 
-Bij Elasticsearch is er sprake van horizontale schaalbaarheid \autocite{Dixit2013}. Dat wil zeggen dat een cluster opgedeeld wordt in verschillende nodes. De nodes kunnen zonder problemen om verschillende hardware functioneren. Een cluster kan dus uitgebreid worden zonder dat de complexiteit van het systeem toeneemt.
+Bij Elasticsearch is er sprake van horizontale schaalbaarheid \autocite{Dixit2013}. Dat wil zeggen dat een cluster opgedeeld wordt in verschillende nodes. De nodes kunnen zonder problemen om verschillende hardware functioneren. Een cluster kan dus uitgebreid worden zonder dat de complexiteit van het systeem toeneemt. Bij het toevoegen van een nieuwe node worden de shards verplaatst zodat de nodige opslagruimte minimaal blijft.
 
-In de master thesis van \textcite{Berglund2013} wordt er een belangrijke stelling gemaakt over de schaalbaarheid van Elasticsearch. De search engine is zeer schaalbaar omdat de documents organisatorisch verdeeld zijn over verschillende nodes. Bij een specifieke zoekopdracht waarbij men zoekt op het document ID of het type zullen slechts enkele nodes moeten overlopen worden. Dat ideale scenario is echter niet altijd relevant. Afhankelijk van de criteria waarop men zoekt, kan het zijn dat alle nodes moeten overlopen worden. Dat is een limitatie van de schaalbaarheid van Elasticsearch. Dat probleem zou vandaag nog niet opgelost kunnen worden zonder dat er data-verlies voorkomt in de zoekresultaten. Zeer sterk in schaalbaarheid. Bij het toevoegen van een nieuwe node worden de shards verplaatst zodat de nodige opslagruimte minimaal blijft.  
+In de master thesis van \textcite{Berglund2013} wordt er een belangrijke stelling gemaakt over de schaalbaarheid van Elasticsearch. De search engine is zeer schaalbaar omdat de documents organisatorisch verdeeld zijn over verschillende nodes. Bij een specifieke zoekopdracht waarbij men zoekt op het document ID of het type zullen slechts enkele nodes moeten overlopen worden. Dat ideale scenario is echter niet altijd relevant. Afhankelijk van de criteria waarop men zoekt, kan het zijn dat alle nodes moeten overlopen worden. Dat is een limitatie van de schaalbaarheid van Elasticsearch. Dat probleem zou vandaag nog niet opgelost kunnen worden zonder dat er data-verlies voorkomt in de zoekresultaten. 
 
 \subsection{Installatie}
 \label{Installatie}
 
-Elasticsearch is gratis als je beslist om het zelf te hosten. De installatie verloopt zeer snel. Eerst moet je zorgen dat Java geïnstalleerd staat op je computer. Daarna download je een versie van Elasticsearch naar keuze via de website. Pak het bestand uit en je bent klaar om je eerste cluster op te zetten. Als dat te moeilijk is kan men gebruik maken van een grafische user interface die beschikbaar is via de MSI installer package. Op de website staat stap voor stap uitgelegd hoe je de installatie kunt uitvoeren. 
+Elasticsearch is gratis wanneer men beslist om het zelf te hosten. De installatie verloopt zeer snel. Eerst moet men ervoor zorgen dat Java geïnstalleerd staat op het systeem. Daarna kan er een versie naar keuze van Elasticsearch gedownload worden via de website. Wanneer men het bestand uitpakt staat alles klaar om de eerste cluster op te starten. Als dat te moeilijk is kan men gebruik maken van een grafische user interface die beschikbaar is via de MSI installer package. Op de website staat stap voor stap uitgelegd hoe je de installatie kunt uitvoeren. 
 
+Er hangen niet zoveel nadelen vast aan het zelf hosten van Elasticsearch. Men moet natuurlijk wel over voldoende ruimte beschikken op de harde schijf. Dat kan moeilijk worden wanneer men met grote hoeveelheden data werkt. Daarnaast is het belangrijk om te weten dat men zelf verantwoordelijk bent voor eventuele downtimes. Het is dus perfect mogelijk om Elasticsearch volledig gratis te gebruiken. 
 
-Er hangen niet zoveel nadelen vast aan het zelf hosten van Elasticsearch. Je moet natuurlijk wel over voldoende ruimte beschikken op je harde schijf. Dat kan moeilijk worden wanneer men met grote hoeveelheden data werkt. Daarnaast is het belangrijk om te weten dat je zelf verantwoordelijk bent voor eventuele downtimes. Het is dus perfect mogelijk om Elasticsearch volledig gratis te gebruiken. 
-
-Wanneer men beslist om te betalen voor de hosting bij Elasticsearch beschikt men wel over enkele voordelen . De eerder vermelde problemen in verband met ruimte op je harde schijf en downtimes zijn niet langer van toepassing.  Aan de hosting zijn een aantal Service Level Agreements verbonden die ervoor zorgen dat je verzekerd bent van een goede kwaliteit en dat je kan rekenen op voldoende support. De kostprijs is 36,53 EUR per maand. Er is ook een mogelijkheid om eerst een proefversie van 14 dagen te gebruiken.
+Wanneer men beslist om te betalen voor de hosting bij Elasticsearch beschikt men wel over enkele voordelen. De eerder vermelde problemen in verband met ruimte op je harde schijf en downtimes zijn niet langer van toepassing. Aan de externe hosting zijn er een aantal Service Level Agreements verbonden die ervoor zorgen dat men verzekerd is van een goede kwaliteit en dat men kan rekenen op voldoende support. De kostprijs is 36,53 EUR per maand. Er is ook een mogelijkheid om eerst een proefversie van 14 dagen te gebruiken.
 
 \subsection{Data importeren in Elasticsearch}
 
-Om data te exporteren van de databank naar Elasticsearch zijn er een aantal mogelijkheden, afhankelijk van welke databank er gebruik wordtt. De eerste mogelijkheid is er één die Elasticsearch zelf aanbiedt. Daarvoor maken ze gebruik van een ander product uit de Elastic Stack\footnote{De Elastic Stack is een verzameling van open-source producten van Elastic.}: Logstash. Logstash is een ETL-tool om data te verwerken, te transformeren en uit te wisselen. Het is een product waar veel informatie en support over te vinden is. Logstash is dus een tool die veel flexibiliteit biedt maar vraagt wel een extra installatie vergt. 
+Om data te exporteren van de databank naar Elasticsearch zijn er een aantal mogelijkheden, afhankelijk van welke databank er gebruik wordt. De eerste mogelijkheid is er één die Elasticsearch zelf aanbiedt. Daarvoor maken ze gebruik van een ander product uit de Elastic Stack\footnote{De Elastic Stack is een verzameling van open-source producten van Elastic.}: Logstash. Logstash is een ETL-tool om data te verwerken, te transformeren en uit te wisselen. Het is een product waar veel informatie en support over te vinden is. Logstash is dus een tool die veel flexibiliteit biedt maar wel een extra installatie vergt. 
 
 Daarnaast zijn er een aantal tools die aangeboden worden door de community. Voor die tools is er in het algemeen minder support te vinden. Nog een nadeel is dat het niet altijd mogelijk is om de data naar de laatste versie van Elasticsearch te exporteren. De versies van de tools lopen namelijk in het algemeen achter op de nieuwste versie van Elasticsearch. 
 
 Zowel Logstash als de meeste tools die worden aangeboden door de community bieden ook de functionaliteit aan om data te synchroniseren. Dat wil zeggen dat, wanneer de data veranderd in de databank, die veranderingen ook doorgevoerd worden in Elasticsearch. In veel use cases zal dit veel voordelen bieden. 
 
-\textbf{VERDERE LITERATUURSTUDIE}
+\subsection{Support}
 
-\begin{itemize}
-	\item Elasticsearch biedt veel features zoals full text-search, suggesties (did you mean), results highlighting, custom document scoring (relevantie berekenen bijvoorbeeld aantal matches, lengte van het veld, ...) 
-	\item Open Source
-	\item De query DSL van Elasticsearch is minder gebruikelijk en minder flexibel dan die van SQL. Dat betekent dat je, ondanks de hoge leercurve, minder flexibiliteit hebt.  
-	\item Geen vorm van security. (alle gebruikers zijn super admin) 
-	\item relaties: Bresetvik Elasticsearch is a document oriented database. The entire object graph you want to search needs to be indexed, so before indexing your documents, they must be denormalized. Denormalization increases retrieval performance (since no query joining is necessary), uses more space (because things must be stored several times), but makes keeping things consistent and up-to-date more difficult (as any change must be applied to all instances). They're excellent for write-once-read-many-workloads, however.
-	\item nieuw zegt dat het poorly documented is (2012) nu wel goed
-\end{itemize}
+Ook support is een zeer belangrijk aspect wanneer men overweegt om met Elasticsearch te werken. Een eerste onderdeel van support is de documentatie. Hoeveel informatie kan men vinden over de werking van Elasticsearch? Volgens \textcite{Glauner2012} was die documentatie in 2012 onvoldoende. Uit het project in hoofdstuk 3 zal blijken dat deze documentatie echter zeer uitgebreid geworden is. Ook staat er een grote community achter Elasticsearch die zeer bruikbare features aanbied. Verder zijn er talrijke boeken te vinden. Deze boeken reiken van boeken waar beginners mee aan de slag kunnen tot boeken waaruit experten hun kennis verder kunnen uitbreiden. \textbf{(http://whatpixel.com/best-elasticsearch-books/)}
 
+\subsection{Gebruik van Elasticsearch}
 
+Elasticsearch wordt door veel bedrijven actueel gebruikt voor verschillende doeleinden. Die doeleinden kunnen gaan van logging tot het bestrijden van cyberaanvallen. Enkele merkwaardige gebruikers van Elasticsearch zijn NASA, Netflix, Github, Facebook, Cisco, Microsoft en Adobe \textbf{(https://www.elastic.co/use-cases)}.
 
+Er kan met de REST API van Elasticsearch gecommuniceerd worden met behulp van elke web client die men prefereert. Men kan er zelf voor kiezen om deze tussenlaag over te slaan door de command line te gebruiken. Elasticsearch voorziet enkele clients die kunnen gebruikt worden in verschillende talen. Veelgebruikte talen zijn Curl, Java, C\#, Python, JavaScript, PHP, Perl en Ruby. Daarnaast biedt ook de community een uitgebreide waaier aan clients \textbf{(https://www.elastic.co/guide/en/elasticsearch/guide/master/\textunderscore talking\textunderscore to\textunderscore elasticsearch.html)}.
+
+Elasticsearch biedt veel features zoals full text-search, completion suggesters, custom document scoring en meer. Bij full text-search geeft de gebruiker één of meerdere sleutelwoorden mee. Elasticsearch zal dan zoeken naar documents die de sleutelwoorden bevatten. Bij completion suggesters wordt opnieuw een sleutelwoord meegegeven door de gebruiker. Elasticsearch zal een lijst teruggeven met een aantal voorstellen van relevante sleutelwoorden die de gebruiker dan kan gebruiken om zijn zoektocht verder te zetten. Custom document scoring houdt in dat men zelf een functie kan meegeven die de relevantie van de zoekopdracht berekent. Variabelen die bijvoorbeeld een belangrijke rol kunnen spelen zijn de lengte van het veld, het aantal overeenkomsten en meer. Een uitgebreid aanbod aan features zorgt ervoor dat er meer kans is dat Elasticsearch aan de eisen van uw use case voldoet. 
+
+Van authorizatie is er echter geen sprake. Iedere gebruiker van Elasticsearch heeft alle rechten \autocite{Brasetvik2013}. Wanneer men bijvoorbeeld met een team van ontwikkelaars werkt moet daar rekening mee gehouden worden.
+
+\subsection{Alternatieven}
+
+\textbf{(https://www.slant.co/options/358/alternatives/~elasticsearch-alternatives)}
+Er zijn heel wat alternatieven voor Elasticsearch op de markt. De meeste alternatieven bieden echter enkel functionaliteiten om data-analyses uit te voeren, om aan logging te doen of om een zoekfunctionaliteit te implementeren. Alternatieven die alle features van Elasticsearch kunnen vervangen zijn dus veel schaarser. 
+
+\textbf{(https://www.algolia.com/doc/tutorials/)}
+Een eerste alternatief is Algolia. Algolia is een duurder product dat zich meer op de zoekfunctionaliteit focust. Een groot verschil met Elasticsearh is de security. In tegenstelling tot Elasticsearch bestaat er in Algolia de mogelijkheid om gebruikersrechten in te voeren. Zo kunnen bepaalde luiken van het product afgeschermd worden voor gebruikers die daar geen toegang mogen voor hebben. Die authorizatie wordt gedaan aan de hand van API keys. Verder zal Algolia het zoekgedrag gaan analyseren zonder dat daar extra configuraties aan te pas gaan. Dat zoekgedrag kan, afhankelijk van de use case, zeer interessante informatie opleveren. Evenals Elasticsearch biedt Algolia ook logging aan. Deze functionaliteit is echter meer uitgebreid in Elasticsearch dan in Algolia. Ook de grote waaier aan aggregaties is niet aanwezig in Algolia. Data-analyses worden dus beter in Elasticsearch gedaan terwijl Algolia meer hulp kan bieden bij zoekfunctionaliteiten. \textbf{(https://blog.algolia.com/algolia-v-elasticsearch-latency/)}
+
+\textbf{http://lucene.apache.org/solr/features.html}
+Een tweede alternatief is Apache Solr. Aapche Solr is zeer vergelijkbaar met Elasticsearch. Elasticsearch biedt meer features terwijl Apache Solr meer fout tolerant is. Voor een eenvoudige maar robuuste zoekfunctionaliteit wordt Apache Solr aangeraden. Voor meer flexibiliteit wordt Elasticsearch aangeraden.
 
 \section{Probleemstelling en Onderzoeksvragen}
 \label{sec:onderzoeksvragen}
@@ -85,6 +86,8 @@ Zowel Logstash als de meeste tools die worden aangeboden door de community biede
 %% onderzoeksvra(a)g(en). Een onderzoeksvraag is trouwens iets waar nog
 %% niemand op dit moment een antwoord heeft (voor zover je kan nagaan).
 
+\textbf{TO DO}
+
 \section{Opzet van deze bachelorproef}
 \label{sec:opzet-bachelorproef}
 
@@ -94,9 +97,7 @@ Zowel Logstash als de meeste tools die worden aangeboden door de community biede
 
 De rest van deze bachelorproef is als volgt opgebouwd:
 
-In Hoofdstuk~\ref{ch:methodologie} wordt de methodologie toegelicht en worden de gebruikte onderzoekstechnieken besproken om een antwoord te kunnen formuleren op de onderzoeksvragen.
+In Hoofdstuk~\ref{ch:methodologie} wordt het project dat werd uitgevoerd in Elasticsearch om voor-en nadelen te introduceren, bevestigen of ontkrachten beschreven.
 
-%% TODO: Vul hier aan voor je eigen hoofstukken, één of twee zinnen per hoofdstuk
-
-In Hoofdstuk~\ref{ch:conclusie}, tenslotte, wordt de conclusie gegeven en een antwoord geformuleerd op de onderzoeksvragen. Daarbij wordt ook een aanzet gegeven voor toekomstig onderzoek binnen dit domein.
+In Hoofdstuk~\ref{ch:conclusie}, tenslotte, wordt de conclusie gegeven en een antwoord geformuleerd op de onderzoeksvraag. Daarbij wordt ook een aanzet gegeven voor toekomstig onderzoek binnen dit domein.
 
