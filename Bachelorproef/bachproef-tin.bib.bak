@@ -83,7 +83,7 @@ performed. Finally, a future outlook is briefly discussed.},
   author    = {Bharvi Dixit},
 }
 
-@Misc{,
+@Misc{Babaev2013,
   author    = {Dmitri Babaev},
   title     = {Elasticsearch cluster},
   year      = {2013},
