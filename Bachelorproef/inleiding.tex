@@ -29,7 +29,7 @@ Om dit onderzoek beter te begrijpen worden de belangrijkste termen uit de archeo
 
 \subsection{Schaalbaarheid}
 
-Bij Elasticsearch is er sprake van horizontale schaalbaarheid \autocite{Dixit2013}. Dat wil zeggen dat een cluster opgedeeld wordt in verschillende nodes. De nodes kunnen zonder problemen op verschillende hardware functioneren. Een cluster kan dus uitgebreid worden zonder dat de complexiteit van het systeem toeneemt. Bij het toevoegen van een nieuwe node worden de shards verplaatst zodat de nodige opslagruimte minimaal blijft.
+Bij Elasticsearch is er sprake van horizontale schaalbaarheid \autocite{Dixit2016}. Dat wil zeggen dat een cluster opgedeeld wordt in verschillende nodes. De nodes kunnen zonder problemen op verschillende hardware functioneren. Een cluster kan dus uitgebreid worden zonder dat de complexiteit van het systeem toeneemt. Bij het toevoegen van een nieuwe node worden de shards verplaatst zodat de nodige opslagruimte minimaal blijft.
 
 In de master thesis van \textcite{Berglund2013} wordt er een belangrijke stelling gemaakt over de schaalbaarheid van Elasticsearch. De search engine is zeer schaalbaar omdat de documents organisatorisch verdeeld zijn over verschillende nodes. Bij een specifieke zoekopdracht waarbij men zoekt op het document ID of het type zullen slechts enkele nodes moeten overlopen worden. Dat ideale scenario is echter niet altijd relevant. Afhankelijk van de criteria waarop men zoekt, kan het zijn dat alle nodes moeten overlopen worden. Dat is een limitatie van de schaalbaarheid van Elasticsearch. Dat probleem zou vandaag nog niet opgelost kunnen worden zonder dat er data-verlies voorkomt in de zoekresultaten. 
 
@@ -52,7 +52,7 @@ Zowel Logstash als de meeste tools die worden aangeboden door de community biede
 
 \subsection{Support}
 
-Ook support is een zeer belangrijk aspect wanneer men overweegt om met Elasticsearch te werken. Een eerste onderdeel van support is de documentatie. Hoeveel informatie kan men vinden over de werking van Elasticsearch? Volgens \textcite{Glauner2012} was die documentatie in 2012 onvoldoende. Uit het project in hoofdstuk 3 zal blijken dat deze documentatie echter zeer uitgebreid geworden is. Ook staat er een grote community achter Elasticsearch die zeer bruikbare features aanbied. Verder zijn er talrijke boeken te vinden \autocite{Turner}. Deze boeken reiken van boeken waar beginners mee aan de slag kunnen tot boeken waaruit experten hun kennis verder kunnen uitbreiden.
+Ook support is een zeer belangrijk aspect wanneer men overweegt om met Elasticsearch te werken. Een eerste onderdeel van support is de documentatie. Hoeveel informatie kan men vinden over de werking van Elasticsearch? Volgens \textcite{Glauner2012} was die documentatie in 2012 onvoldoende. Uit het project in hoofdstuk 3 zal blijken dat deze documentatie echter zeer uitgebreid geworden is. Ook staat er een grote community achter Elasticsearch die zeer bruikbare features aanbied. Verder zijn er talrijke boeken te vinden (\textcite{Turner}). Deze boeken reiken van boeken waar beginners mee aan de slag kunnen tot boeken waaruit experten hun kennis verder kunnen uitbreiden.
 
 \subsection{Gebruik van Elasticsearch}
 
