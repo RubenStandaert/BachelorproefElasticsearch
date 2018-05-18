@@ -113,10 +113,36 @@ performed. Finally, a future outlook is briefly discussed.},
 }
 
 @Misc{Elasticsearch,
-  title        = {El\&sticsearch Tutorials},
+  title        = {Elasticsearch Tutorials},
   howpublished = {https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html},
   timestamp    = {2018-05-12},
   url          = {https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html},
+}
+
+@MastersThesis{Whissel2009,
+  author   = {Jhon Whissel},
+  title    = {INFORMATION RETRIEVAL USING LUCENE AND WORDNET},
+  school   = {The University of Akron},
+  year     = {2009},
+  abstract = {This thesis outlines the use of Apache Lucene, its subproject Nutch, and WordNet as tools
+for information retrieval, a science of searching through data in order to obtain
+knowledge that has become increasingly relevant in the Information Age. Lucene is a
+software library released by the Apache Software Foundation which provides information
+retrieval capabilities to programmers. Nutch, based on Lucene, adds Internet search
+functionality. WordNet is a lexical database which groups similar words into sets of
+synonyms, or synsets, and tracks their semantic relationships. This creates a combination
+of a dictionary and a thesaurus which may be browsed as such or used in software
+applications. Lucene and Nutch are released under the Apache Software License and are
+free and open source. WordNet is released under a similar license. The availability of free
+and open source tools such as Lucene, Nutch, and WordNet grants software developers a
+base from which they may create applications that can be tailored to their specifications,
+while simultaneously eliminating the need to create the entire code base for their projects
+from scratch. This practice can result in reduced programming time and lower software
+development costs. The remainder of this document outlines the use of these tools and
+then presents the methodology for the integration of their combined capabilities into a
+search engine capable of online information retrieval. This discussion culminates with a
+demonstration of how WordNet may be employed to remove search query ambiguity.},
+  url      = {https://etd.ohiolink.edu/rws_etd/document/get/akron1253659613/inline},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}
