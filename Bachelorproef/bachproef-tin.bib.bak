@@ -121,7 +121,7 @@ performed. Finally, a future outlook is briefly discussed.},
 
 @MastersThesis{Whissel2009,
   author   = {Jhon Whissel},
-  title    = {INFORMATION RETRIEVAL USING LUCENE AND WORDNET},
+  title    = {Information retrieval using Lucene and Wordnet},
   school   = {The University of Akron},
   year     = {2009},
   abstract = {This thesis outlines the use of Apache Lucene, its subproject Nutch, and WordNet as tools
@@ -143,6 +143,42 @@ then presents the methodology for the integration of their combined capabilities
 search engine capable of online information retrieval. This discussion culminates with a
 demonstration of how WordNet may be employed to remove search query ambiguity.},
   url      = {https://etd.ohiolink.edu/rws_etd/document/get/akron1253659613/inline},
+}
+
+@Misc{Brasetvik2017,
+  author       = {Alex Brasetvik},
+  title        = {Elasticsearch and Lucene's architecture},
+  howpublished = {https://www.youtube.com/watch?v=kmMlR9G-64c},
+  month        = jul,
+  year         = {2017},
+  url          = {https://www.youtube.com/watch?v=kmMlR9G-64c},
+}
+
+@MastersThesis{Tahir2008,
+  author    = {Muhammad Tahir and Aleem Tariq},
+  title     = {Quality of the Open Source Software},
+  school    = {Blekinge Institute of Technology},
+  year      = {2008},
+  abstract  = {Quality and security of software are key factors in the software development. This thesis deals
+with the quality of open source software (OSS for short) and different questions that are related
+with open source and close source software has discussed in the thesis proposal. Open source
+software is a process by which we can produce cheap and qualitative software and its source
+could be re-use in the development of the software. Close source software is more expensive
+than open source software and we can not re-use its source code, so there should be a way by
+which cheap and qualitative software should be produced. This thesis describes that how the
+quality of the open source software can be evaluated and increased. There are different factors
+which are helpful to increase the software quality these factors are low cycle time, low cost and
+small size of software. These factors are also helpful for the development of software product
+according to the requirement of clients and the users of that software. This thesis also describes
+the security and performance of close and open source software and it also analyze different
+software development processes. The quality of OSS can be increased by use of best evaluation
+techniques, best quality measurement, best development tools and best development process.
+There are also many challenges for OSS, which it has to face for improvement of the quality of
+OSS. Initially there were many drawbacks in open source software but with the passage of time
+improvement has produced in it. This thesis also describes the compression, advantages and
+disadvantages of the close source and open source software.},
+  timestamp = {2018-05-19},
+  url       = {https://www.diva-portal.org/smash/get/diva2:828415/FULLTEXT01.pdf},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}
