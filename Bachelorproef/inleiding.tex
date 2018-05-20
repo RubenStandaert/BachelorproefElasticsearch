@@ -18,6 +18,8 @@ Het CAP theorema stelt dat het onmogelijk is voor een gedistribueerd systeem om 
 
 \subsection{Apache Lucene}
 
+Om een goed inzicht te krijgen in de architectuur en werking van Elasticsearch keert men beter eerst terug naar de basis. Die basis is Apache Lucene. Elasticsearch is namelijk een laag die bovenop Apache Lucene werd gebouwd. Wanneer de architectuur van Elasticsearch besproken wordt in sectie \ref{architectuur} zal het duidelijk worden waar Apache Lucene zich bevindt in die architectuur.
+
 Apache Lucene is een gratis en open source full-text search Java library. Lucene werd origineel in Java geschreven maar werd later ook beschikbaar gemaakt in verscheidene programmeertalen zoals: C++, C\#, Delphi, Perl, PHP, Python, en Ruby \autocite{Whissel2009}. Deze library kan in een project geladen worden waardoor de functies kunnen aangeroepen worden.
 
 \subsubsection{Features}
@@ -37,6 +39,8 @@ Tot nu toe werd er enkel gesproken over het opslaan van documents. Een document 
 De reverted index is niet zo'n interessant gegeven wanneer men een term van een vooraf bepaald document wil opzoeken. Daarom wordt er per document ook een stored field opgeslaan. Een stored field is een key-value store die de data van het document voorstelt. Op die manier moet de reverted index niet volledig doorlopen worden maar kan men rechtstreeks data van het specifieke document opvragen.
 
 \subsection{Elasticsearch architectuur}
+\label{architectuur}
+
 
 Om dit onderzoek beter te begrijpen worden de belangrijkste termen uit het domein van Elasticsearch eerst kort besproken. In het boek van \textcite{Dixit2016} leert men hoe de achterliggende structuur van Elasticsearch in elkaar zit. Elasticsearch bestaat uit een cluster. De eerste cluster heeft standaard Elasticsearch als naam. Alle clusters samen stellen de data voor. In figuur \ref{fig:ESArchitecture} van \textcite{Babaev2013} is te zien hoe zo'n cluster in elkaar zit. Een node is een instantie van Elasticsearch. Bij de creatie krijgt een node standaard een UUID en komt bij de Elasticsearch cluster tenzij anders gedefinieerd. In de nodes zitten de indices. Een index is een verzameling van documents met gelijkaardige karakteristieken. Hier slaat Elasticsearch data in op. Een index kan zeer groot worden. Het kan gebeuren dat de index te groot wordt om op de schijf van een node op te slaan. Daarom bestaat een index uit meerdere shards en replicas. Deze worden door Elasticsearch voorzien om een index op te delen in stukken. Een shard in Elasticsearch stelt een Lucene index voor \autocite{Brasetvik2017}. Bij een zoekopdracht zullen de shards individueel doorzocht worden waarna de resultaten gecombineerd worden. Een shard kan een primaire shard of een secundaire shard zijn. Operaties die data aanpassen gebeuren op primaire shards. Secundaire shards bevatten kopies van de data van de primaire shards en zorgen ervoor dat het zoeken snel gebeurt. Kopies van data bewaren heeft ook als effect dat er sprake is van een hoge beschikbaarheid. Wanneer een primaire shard wordt stopgezet valt een secundaire shard in om de rol van de primaire shard te vervangen. Een veelgebruikt synoniem voor een secundaire shard is replica. In de shards kunnen de documents dan teruggevonden worden zoals in de architectuur van Lucene.
 
@@ -77,6 +81,7 @@ Zowel Logstash als de meeste tools die worden aangeboden door de community biede
 Ook support is een zeer belangrijk aspect wanneer men overweegt om met Elasticsearch te werken. Een eerste onderdeel van support is de documentatie. Hoeveel informatie kan men vinden over de werking van Elasticsearch? Volgens \textcite{Glauner2012} was die documentatie in 2012 onvoldoende. Uit het project in hoofdstuk 3 zal blijken dat deze documentatie echter zeer uitgebreid geworden is. Ook staat er een grote community achter Elasticsearch die zeer bruikbare features aanbiedt. Verder zijn er talrijke boeken te vinden (\textcite{Turner}). Deze boeken reiken van boeken waar beginners mee aan de slag kunnen tot boeken waarmee experten hun kennis verder kunnen uitbreiden.
 
 \subsection{Gebruik van Elasticsearch}
+\label{subsec:gebruikES}
 
 Elasticsearch wordt door veel bedrijven momenteel gebruikt voor verschillende doeleinden. Die doeleinden kunnen gaan van logging tot het bestrijden van cyberaanvallen. Enkele opvallende gebruikers van Elasticsearch zijn NASA, Netflix, Github, Facebook, Cisco, Microsoft en Adobe. Deze zijn te vinden op de website van Elasticsearch.
 
@@ -96,9 +101,19 @@ De community van Elasticsearch is groot en is zeer behulpzaam. Toch kan men daar
 
 Er zijn heel wat alternatieven voor Elasticsearch op de markt. De meeste alternatieven bieden echter enkel functionaliteiten om data-analyses uit te voeren, om aan logging te doen of om een zoekfunctionaliteit te implementeren. Alternatieven die alle features van Elasticsearch kunnen vervangen zijn dus veel schaarser. 
 
+\subsubsection{Algolia}
+
 Een eerste alternatief is Algolia. Algolia is een duurder product dat zich meer op de zoekfunctionaliteit focust. Een groot verschil met Elasticsearh is de security. In tegenstelling tot Elasticsearch bestaat er in Algolia de mogelijkheid om gebruikersrechten in te voeren \autocite{Algolia}. Zo kunnen bepaalde luiken van het product afgeschermd worden voor gebruikers die daar geen toegang mogen toe hebben. Die authorizatie wordt gedaan aan de hand van API keys. Verder zal Algolia het zoekgedrag gaan analyseren zonder dat daar extra configuraties aan te pas gaan. Dat zoekgedrag kan, afhankelijk van de use case, zeer interessante informatie opleveren. Evenals Elasticsearch biedt Algolia ook logging aan. Deze functionaliteit is echter meer uitgebreid in Elasticsearch dan in Algolia. Ook de grote waaier aan aggregaties is niet aanwezig in Algolia. Data-analyses worden dus beter in Elasticsearch gedaan terwijl Algolia meer hulp kan bieden bij zoekfunctionaliteiten.
 
+\subsubsection{Apache Solr}
+
 Een tweede alternatief is Apache Solr. Ook deze zoekmachine werd gebouwd met Apache Lucene als basis. Apache Solr is zeer vergelijkbaar met Elasticsearch maar wordt beschouwd als een volwassen technologie terwijl Elasticsearch een jongere technologie is. Elasticsearch heeft een aantal oplossingen voor de limitaties in Solr. Die limitaties zijn ontstaan door zeer schaalbaar te willen zijn. Elasticsearch biedt meer features terwijl Apache Solr meer fout tolerant is en tegelijkertijd beter schaalt. \autocite{Solr}. Voor een eenvoudige maar robuuste zoekfunctionaliteit wordt Apache Solr aangeraden. Voor meer flexibiliteit wordt Elasticsearch aangeraden.
+
+\subsubsection{Searchify}
+
+Een derde alternatief is Searchify. Searchify beschikt, net als Elasticsearch, over een uitgebreid aanbod aan features. Veel van die features werden in beide zoekmachines op een andere manier geïmplementeerd maar men kan over het algemeen dezelfde resultaten bekomen. Een voorbeeld daarvan zijn de field weights in Searchify. Field weights laten de gebruiker toe om een gewicht mee te geven aan bepaalde fields in een document. Zo kan men specifiëren dat de titel van een boek een groter gewicht heeft dan de inhoud van het boek. Wanneer men nadien naar een term gaat zoeken zullen de boeken, waarvan de term in de titel zit, hoger scoren dan boeken waarvan de  term ergens in de tekst voorkomt. In Elasticsearch kan men een gelijkaardige logica bereiken met custom document scoring. Custom document scoring kwam eerder aan bod in de literatuurstudie in sectie \ref{subsec:gebruikES}. Deze feature is complexer in gebruik maar biedt meer mogelijkheden om uw zoekresultaten te beïnvloeden. Beide zoekmachines zijn beschikbaar in verschillende programmeertalen. Een aspect waar Searchify een groot voordeel bied over Elasticsearch zijn de real-time updates. Searchify is ideaal wanneer de data zeer frequent veranderd. De zoekmachine werd gebouwd om aan de noden van een moderne web site te voldoen waar de data zeer snel veranderd. Dat is het tegenovergestelde van Elasticsearch, waar data die veel veranderd ervoor kan zorgen dat men niet meer over real-time search kan spreken. Eerder in de literatuurstudie werd vermeld dat dit komt door de optimistische concurrency control. Een groot nadeel van Searchify is dat het niet gratis gebruikt kan worden. De goedkoopste module begint met 50 EUR per maand.
+
+
 
 \section{Probleemstelling en Onderzoeksvragen}
 \label{sec:onderzoeksvragen}
