@@ -39,20 +39,19 @@ distributed search engine, especially in a low resource environment.},
   date        = {2013-06},
   institution = {University of Gothenburg},
   keywords    = {elasticsearch, shard selection, SAFE, scalability},
-  timestamp   = {2018-03-09},
   type        = {mathesis},
   url         = {https://findwise.com/labs/sites/default/files/reports/shard_selection_elastics.pdf},
 }
 
 @Online{Brasetvik2013,
-  author    = {Brasetvik, Alex},
-  title     = {Elasticsearch as a NoSQL Database},
-  month     = {09},
-  year      = {2013},
-  abstract  = {Can Elasticsearch be used as a "NoSQL"-database? NoSQL means different things in different contexts, and interestingly it's not really about SQL. We will start out with a "Maybe!", and look into the various properties of Elasticsearch as well as those it has sacrificed, in order to become one of the most flexible, scalable and performant search and analytics engines yet.},
-  keywords  = {elasticsearch, database, transactions, relations, constraints, security},
-  timestamp = {2017-09-12},
-  url       = {https://www.elastic.co/blog/found-elasticsearch-as-nosql},
+  author   = {Brasetvik, Alex},
+  title    = {Elasticsearch as a NoSQL Database},
+  month    = {09},
+  year     = {2013},
+  note     = {Geraadpleegd op 12-09-2017},
+  abstract = {Can Elasticsearch be used as a "NoSQL"-database? NoSQL means different things in different contexts, and interestingly it's not really about SQL. We will start out with a "Maybe!", and look into the various properties of Elasticsearch as well as those it has sacrificed, in order to become one of the most flexible, scalable and performant search and analytics engines yet.},
+  keywords = {elasticsearch, database, transactions, relations, constraints, security},
+  url      = {https://www.elastic.co/blog/found-elasticsearch-as-nosql},
 }
 
 @Thesis{Glauner2012,
@@ -86,36 +85,36 @@ performed. Finally, a future outlook is briefly discussed.},
 }
 
 @Misc{Babaev2013,
-  author    = {Dmitri Babaev},
-  title     = {Elasticsearch cluster},
-  year      = {2013},
-  timestamp = {2018-04-28},
-  url       = {https://image.slidesharecdn.com/elasticsearchmoscowbigdata-cassandrasept2013meetup-130914151418-phpapp01/95/elasticsearch-as-a-distributed-nosql-db-4-638.jpg?cb=1379171830},
+  author = {Dmitri Babaev},
+  title  = {Elasticsearch cluster},
+  year   = {2013},
+  note   = {Geraadpleegd op 28-04-2018},
+  url    = {https://image.slidesharecdn.com/elasticsearchmoscowbigdata-cassandrasept2013meetup-130914151418-phpapp01/95/elasticsearch-as-a-distributed-nosql-db-4-638.jpg?cb=1379171830},
 }
 
 @Misc{Turner,
-  author    = {Alex Turner},
-  title     = {Best Elasticsearch Books From Beginner To Expert},
-  timestamp = {2018-05-05},
-  url       = {http://whatpixel.com/best-elasticsearch-books/},
+  author = {Alex Turner},
+  title  = {Best Elasticsearch Books From Beginner To Expert},
+  note   = {Geraadpleegd op 05-05-2018},
+  url    = {http://whatpixel.com/best-elasticsearch-books/},
 }
 
 @Misc{Algolia,
-  title     = {Algolia Tutorials},
-  timestamp = {2018-05-12},
-  url       = {https://www.algolia.com/doc/tutorials/},
+  title = {Algolia Tutorials},
+  note  = {Geraadpleegd op 12-05-2018},
+  url   = {https://www.algolia.com/doc/tutorials/},
 }
 
 @Misc{Solr,
-  title     = {Solr features},
-  timestamp = {2018-05-12},
-  url       = {http://lucene.apache.org/solr/features.html},
+  title = {Solr features},
+  note  = {Geraadpleegd op 12/05/2018},
+  url   = {http://lucene.apache.org/solr/features.html},
 }
 
 @Misc{Elasticsearch,
-  title     = {Elasticsearch Tutorials},
-  timestamp = {2018-05-12},
-  url       = {https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html},
+  title = {Elasticsearch Tutorials},
+  note  = {Geraadpleegd op 12-05-2018},
+  url   = {https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html},
 }
 
 @MastersThesis{Whissel2009,
@@ -146,13 +145,12 @@ demonstration of how WordNet may be employed to remove search query ambiguity.},
 }
 
 @Misc{Brasetvik2017,
-  author       = {Alex Brasetvik},
-  title        = {Elasticsearch and Lucene's architecture},
-  howpublished = {https://www.youtube.com/watch?v=kmMlR9G-64c},
-  month        = jul,
-  year         = {2017},
-  timestamp    = {2018-05-19},
-  url          = {https://www.youtube.com/watch?v=kmMlR9G-64c},
+  author    = {Alex Brasetvik},
+  title     = {Elasticsearch and Lucene's architecture},
+  month     = jul,
+  year      = {2017},
+  timestamp = {2018-05-19},
+  url       = {https://www.youtube.com/watch?v=kmMlR9G-64c},
 }
 
 @MastersThesis{Tahir2008,
