@@ -39,20 +39,20 @@ distributed search engine, especially in a low resource environment.},
   date        = {2013-06},
   institution = {University of Gothenburg},
   keywords    = {elasticsearch, shard selection, SAFE, scalability},
+  timestamp   = {2018-03-09},
   type        = {mathesis},
   url         = {https://findwise.com/labs/sites/default/files/reports/shard_selection_elastics.pdf},
 }
 
 @Online{Brasetvik2013,
-  author       = {Brasetvik, Alex},
-  title        = {Elasticsearch as a NoSQL Database},
-  howpublished = {https://www.elastic.co/blog/found-elasticsearch-as-nosql},
-  month        = {09},
-  year         = {2013},
-  abstract     = {Can Elasticsearch be used as a "NoSQL"-database? NoSQL means different things in different contexts, and interestingly it's not really about SQL. We will start out with a "Maybe!", and look into the various properties of Elasticsearch as well as those it has sacrificed, in order to become one of the most flexible, scalable and performant search and analytics engines yet.},
-  keywords     = {elasticsearch, database, transactions, relations, constraints, security},
-  timestamp    = {2017-09-12},
-  url          = {https://www.elastic.co/blog/found-elasticsearch-as-nosql},
+  author    = {Brasetvik, Alex},
+  title     = {Elasticsearch as a NoSQL Database},
+  month     = {09},
+  year      = {2013},
+  abstract  = {Can Elasticsearch be used as a "NoSQL"-database? NoSQL means different things in different contexts, and interestingly it's not really about SQL. We will start out with a "Maybe!", and look into the various properties of Elasticsearch as well as those it has sacrificed, in order to become one of the most flexible, scalable and performant search and analytics engines yet.},
+  keywords  = {elasticsearch, database, transactions, relations, constraints, security},
+  timestamp = {2017-09-12},
+  url       = {https://www.elastic.co/blog/found-elasticsearch-as-nosql},
 }
 
 @Thesis{Glauner2012,
@@ -72,6 +72,7 @@ performed. Finally, a future outlook is briefly discussed.},
   date        = {2012-09},
   institution = {Hochschule Karlsruhe Technik und Wirtschaft},
   keywords    = {Document management, ranking, search, information retrieval, Solr, Xapian, elasticsearch, Python },
+  timestamp   = {2018-03-31},
   type        = {bathesis},
   url         = {https://cds.cern.ch/record/1456329/files/CERN-THESIS-2012-074.pdf},
 }
@@ -81,6 +82,7 @@ performed. Finally, a future outlook is briefly discussed.},
   publisher = {Packt Publishing},
   year      = {2016},
   author    = {Bharvi Dixit},
+  timestamp = {2018-04-27},
 }
 
 @Misc{Babaev2013,
@@ -99,32 +101,29 @@ performed. Finally, a future outlook is briefly discussed.},
 }
 
 @Misc{Algolia,
-  title        = {Algolia Tutorials},
-  howpublished = {https://www.algolia.com/doc/tutorials/},
-  timestamp    = {2018-05-12},
-  url          = {https://www.algolia.com/doc/tutorials/},
+  title     = {Algolia Tutorials},
+  timestamp = {2018-05-12},
+  url       = {https://www.algolia.com/doc/tutorials/},
 }
 
 @Misc{Solr,
-  title        = {Solr features},
-  howpublished = {http://lucene.apache.org/solr/features.html},
-  timestamp    = {2018-05-12},
-  url          = {http://lucene.apache.org/solr/features.html},
+  title     = {Solr features},
+  timestamp = {2018-05-12},
+  url       = {http://lucene.apache.org/solr/features.html},
 }
 
 @Misc{Elasticsearch,
-  title        = {Elasticsearch Tutorials},
-  howpublished = {https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html},
-  timestamp    = {2018-05-12},
-  url          = {https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html},
+  title     = {Elasticsearch Tutorials},
+  timestamp = {2018-05-12},
+  url       = {https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html},
 }
 
 @MastersThesis{Whissel2009,
-  author   = {Jhon Whissel},
-  title    = {Information retrieval using Lucene and Wordnet},
-  school   = {The University of Akron},
-  year     = {2009},
-  abstract = {This thesis outlines the use of Apache Lucene, its subproject Nutch, and WordNet as tools
+  author    = {Jhon Whissel},
+  title     = {Information retrieval using Lucene and Wordnet},
+  school    = {The University of Akron},
+  year      = {2009},
+  abstract  = {This thesis outlines the use of Apache Lucene, its subproject Nutch, and WordNet as tools
 for information retrieval, a science of searching through data in order to obtain
 knowledge that has become increasingly relevant in the Information Age. Lucene is a
 software library released by the Apache Software Foundation which provides information
@@ -142,7 +141,8 @@ development costs. The remainder of this document outlines the use of these tool
 then presents the methodology for the integration of their combined capabilities into a
 search engine capable of online information retrieval. This discussion culminates with a
 demonstration of how WordNet may be employed to remove search query ambiguity.},
-  url      = {https://etd.ohiolink.edu/rws_etd/document/get/akron1253659613/inline},
+  timestamp = {2018-05-18},
+  url       = {https://etd.ohiolink.edu/rws_etd/document/get/akron1253659613/inline},
 }
 
 @Misc{Brasetvik2017,
@@ -151,6 +151,7 @@ demonstration of how WordNet may be employed to remove search query ambiguity.},
   howpublished = {https://www.youtube.com/watch?v=kmMlR9G-64c},
   month        = jul,
   year         = {2017},
+  timestamp    = {2018-05-19},
   url          = {https://www.youtube.com/watch?v=kmMlR9G-64c},
 }
 
